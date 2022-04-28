@@ -10,10 +10,10 @@
             <ul class="navbar-nav ms-auto">
                 <li class=" nav-item mx-0 mx-lg-1 dropdown">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        อสม.หยิบ 10
+                        ก้าวท้าใจ
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="<?php echo site_url('/runner'); ?>">ก้าวท้าใจ </a></li>
+                        <li><a class="dropdown-item" href="<?php echo site_url('/runner'); ?>">อสม. ก้าวท้าใจ </a></li>
                         <li><a class="dropdown-item" href="<?php echo site_url('/report/runner_hosp'); ?>"> รายงานก้าวท้าใจใน หน่วยบริการ</a></li>
                         <li><a class="dropdown-item" href="<?php echo site_url('/report/runner_ampur'); ?>"> รายงานก้าวท้าใจ รายอำเภอ</a></li>
                         <li><a class="dropdown-item" href="<?php echo site_url('/report/runner_province'); ?>"> รายงานก้าวท้าใจรายจังหวัด</a></li>
