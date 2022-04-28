@@ -312,7 +312,7 @@ class Reports_model extends CI_Model
     {
 
 
-        $sql = "SELECT b.`NAME`,b.LNAME,b.vhid,count(a.CID) as target
+        $sql = "SELECT b.`NAME`,b.LNAME,b.CID,b.vhid,count(a.CID) as target
         ,SUM(IF(a.bib IS NOT NULL,1,0)) as result
         FROM (SELECT * FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) a 
         LEFT JOIN t_person_cid_hash b ON a.invite_runner = b.CID
