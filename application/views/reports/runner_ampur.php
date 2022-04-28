@@ -15,7 +15,7 @@
 </style>
 <div class="panel panel-info">
     <div class="panel-heading">
-        กลุ่มเป้าหมายก้าวท้าใจ ของจังหวัดมหาสารคาม
+        กลุ่มเป้าหมายฉีดวัคซีนป้องกัน COVID-19 ของจังหวัดมหาสารคาม
     </div>
     <div class="panel-body">
 
