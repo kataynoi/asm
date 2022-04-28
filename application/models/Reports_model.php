@@ -290,6 +290,69 @@ class Reports_model extends CI_Model
 
         return $rs;
     }
+// Runner reports
+
+    public function runner_hosp($hospcode)
+    {
+
+
+        $sql = "SELECT a.`NAME`,a.LNAME,a.CID ,a.BIRTH,a.vhid ,count(b.cid) as target,SUM(IF(b.bib IS NOT NULL,1,0)) as result
+        FROM t_person_cid_hash a 
+        LEFT JOIN (SELECT * FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) b ON a.CID = b.invite_runner
+        WHERE a.aorsormor=1 AND a.hospcode='".$hospcode."' GROUP BY a.CID ORDER BY result DESC";
+        //echo $sql;
+        $rs = $this->db->query($sql)->result();
+        //echo $this->db->last_query();
+
+        return $rs;
+    }
+
+    
+    public function runner_province()
+    {
+
+
+        $sql = "SELECT b.`NAME`,b.LNAME,b.vhid,count(a.CID) as target
+        ,SUM(IF(a.bib IS NOT NULL,1,0)) as result
+        FROM (SELECT * FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) a 
+        LEFT JOIN t_person_cid_hash b ON a.invite_runner = b.CID
+        WHERE a.invite_runner IS NOT NULL 
+        GROUP BY a.invite_runner ORDER BY result DESC";
+        //echo $sql;
+        $rs = $this->db->query($sql)->result();
+        //echo $this->db->last_query();
+
+        return $rs;
+    }
+
+    public function runner_ampur($ampur='')
+    {
+        if($ampur==''){
+            $where = " ";
+            $group=" c.distcode";
+            $select="d.ampurname as name";
+        }else if($ampur!='' ){
+            $where = "AND d.ampurcodefull= '".$ampur."' ";
+            $group=" a.hospcode";
+            $select="c.hosname as name";
+        }
+
+        $sql = "SELECT ".$select.",count(DISTINCT a.CID) asm 
+        ,count( DISTINCT b.invite) as asm_10,count(b.invite) as target 
+        ,SUM(IF(b.bib IS NOT NULL,1,0)) as result  FROM t_person_cid_hash a 
+        LEFT JOIN (SELECT invite,vaccine_hosp3  FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) b ON a.CID = b.invite_runner
+        LEFT JOIN chospital c ON a.HOSPCODE = c.hoscode
+        LEFT JOIN (SELECT * FROM campur WHERE changwatcode=44) d ON c.distcode = d.ampurcode
+        WHERE aorsormor IS NOT NULL ".$where."
+        GROUP BY ".$group."
+        ORDER BY result DESC;
+        ";
+        //echo $sql;
+        $rs = $this->db->query($sql)->result();
+        //echo $this->db->last_query();
+
+        return $rs;
+    }
 }
 /* End of file basic_model.php */
 /* Location: ./application/models/basic_model.php */

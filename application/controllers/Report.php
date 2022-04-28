@@ -93,8 +93,6 @@ class Report extends CI_Controller
     public function  asm_hosp()
     {
 
-        $this->layout->setHeader('layout/header_asm');
-        $this->layout->setLayout('asm_layout');
         $hospcode = $this->session->userdata('hospcode');
         $ampur=$this->input->post('ampurcode');
         $tambon=$this->input->post('tamboncode');
@@ -107,8 +105,6 @@ class Report extends CI_Controller
     }
     public function  asm_province()
     {
-        $this->layout->setHeader('layout/header_asm');
-        $this->layout->setLayout('asm_layout');
 
         $hospcode = $this->session->userdata('hospcode');
         $ampur=$this->input->post('ampurcode');
@@ -123,8 +119,6 @@ class Report extends CI_Controller
 
     public function  asm_ampur()
     {
-        $this->layout->setHeader('layout/header_asm');
-        $this->layout->setLayout('asm_layout');
 
         $hospcode = $this->session->userdata('hospcode');
         $ampur=$this->input->post('ampurcode');
@@ -135,5 +129,46 @@ class Report extends CI_Controller
         $this->log_model->save_log_view($this->id, 'รายงาน กลุ่มเป้าหมายวัคซีน');
         $data['report'] = $this->crud->asm_ampur($ampur);
         $this->layout->view('reports/asm_ampur', $data);
+    }
+
+    public function  runner_hosp()
+    {
+
+        $hospcode = $this->session->userdata('hospcode');
+        $ampur=$this->input->post('ampurcode');
+        $tambon=$this->input->post('tamboncode');
+       // echo "tambon".$tambon;
+        $data['amp']=$this->basic->get_ampur_list('44');
+        $this->load->model('log_model');
+        $this->log_model->save_log_view($this->id, 'รายงาน กลุ่มเป้าหมายวัคซีน');
+        $data['report'] = $this->crud->runner_hosp($hospcode);
+        $this->layout->view('reports/runner_hosp', $data);
+    }
+    public function  runner_province()
+    {
+
+        $hospcode = $this->session->userdata('hospcode');
+        $ampur=$this->input->post('ampurcode');
+        $tambon=$this->input->post('tamboncode');
+       // echo "tambon".$tambon;
+        $data['amp']=$this->basic->get_ampur_list('44');
+        $this->load->model('log_model');
+        $this->log_model->save_log_view($this->id, 'รายงาน กลุ่มเป้าหมายวัคซีน');
+        $data['report'] = $this->crud->runner_province();
+        $this->layout->view('reports/runner_hosp', $data);
+    }
+
+    public function  runner_ampur()
+    {
+
+        $hospcode = $this->session->userdata('hospcode');
+        $ampur=$this->input->post('ampurcode');
+        $tambon=$this->input->post('tamboncode');
+       // echo "tambon".$tambon;
+        $data['amp']=$this->basic->get_ampur_list('44');
+        $this->load->model('log_model');
+        $this->log_model->save_log_view($this->id, 'รายงาน กลุ่มเป้าหมายวัคซีน');
+        $data['report'] = $this->crud->runner_ampur($ampur);
+        $this->layout->view('reports/runner_ampur', $data);
     }
 }
