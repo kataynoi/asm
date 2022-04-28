@@ -99,7 +99,7 @@ crud.save = function (items) {
     } else {
      
       swal("บันทึกข้อมูลเรียบร้อยแล้ว ");
-      window.location.href = base_url+'/runner';
+      window.location.href = site_url+'/runner';
 
     }
   });
