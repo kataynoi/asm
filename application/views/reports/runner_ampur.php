@@ -20,7 +20,7 @@
     <div class="panel-body">
 
         <div class="navbar navbar-default">
-            <form action="<?php echo site_url('report/asm_ampur') ?>" class="navbar-form" method="post">
+            <form action="<?php echo site_url('report/runner_ampur') ?>" class="navbar-form" method="post">
                 <label class="control-label"> อำเภอ </label>
                 <select id="sl_ampur" name="ampurcode" style="width: 200px;" class="form-control">
                     <option value=""> อำเภอทั้งหมด </option>

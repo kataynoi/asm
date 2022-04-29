@@ -1,13 +1,6 @@
 <br>
 <br>
 
-<script>
-$('#left_menu').hide();
-$('[data-toggle="tooltip"]').tooltip();
-$('#btn-28').on('click', function() {
-    alert('OK');
-});
-</script>
 <style>
 #page-wrapper {
     margin-left: 0px;
@@ -15,7 +8,7 @@ $('#btn-28').on('click', function() {
 </style>
 <div class="panel panel-info">
     <div class="panel-heading">
-        กลุ่มเป้าหมายฉีดวัคซีนป้องกัน COVID-19 ของจังหวัดมหาสารคาม
+        กลุ่มเป้าหมายก้าวท้าใจของจังหวัดมหาสารคาม
     </div>
     <div class="panel-body">
         <table class="table table-striped">
@@ -25,10 +18,8 @@ $('#btn-28').on('click', function() {
                     <th>ชื่อ อสม.</th>
                     <th>หมู่บ้าน</th>
                     <th>จำนวนเป้าหมาย</th>
-                    <th>จำนวนเข็ม 3</th>
+                    <th>จำนวนลงทะเบียนก้าวท้าใจ</th>
                     <th>ร้อยละ</th>
-      
-
                 </tr>
             </thead>
             <tbody>
@@ -51,11 +42,11 @@ $('#btn-28').on('click', function() {
                     $total2 +=$r->result;
             }
             echo "<tr>
-                  <td colspan='5'> รวม</td>
+                  <td colspan='3'> รวม</td>
                     
                     <td class='text-center'>" . number_format($total1) . "</td>
                     <td class='text-center'>" . number_format($total2) . "</td>
-                    <td class='text-center'>" . number_format($total2*100/$total1,2) . "</td>
+                    <td class='text-center'>" . @number_format($total2*100/$total1,2) . "</td>
   
                     </tr>"
             ?>
