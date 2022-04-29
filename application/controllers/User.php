@@ -36,7 +36,7 @@ class User extends CI_Controller
     public function login()
     {
         if ($this->session->userdata('asm_login')==1) {
-            redirect(site_url("dashboard"), 'refresh');
+            redirect(site_url("runner"), 'refresh');
            console_log('login'.$this->session->userdata('asm_login'));
         } else {
             $this->layout->view('user/login_asm');
