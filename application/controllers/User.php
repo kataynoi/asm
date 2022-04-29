@@ -39,7 +39,7 @@ class User extends CI_Controller
             redirect(site_url("dashboard"), 'refresh');
            console_log('login'.$this->session->userdata('asm_login'));
         } else {
-            $this->load->view('user/login_asm');
+            $this->layout->view('user/login_asm');
             console_log($this->session->userdata('fullname'));
         }
     }
