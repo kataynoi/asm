@@ -17,7 +17,7 @@
     <input type="text" class="form-control" value="<?php echo $runner->NAME." ".$runner->LNAME?>" disabled >
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">หมายเลขผู้ออกกำลังกาย [BIB] </label>
+    <label for="exampleInputPassword1">หมายเลขผู้ออกกำลังกาย [BIB] * ห้ามลง BIB ซ้ำกันนะครับ จะโดนระบบลบข้อมูลออกและควรลงให้ถูกต้องตามความจริง</label>
     <input type="text" class="form-control" id="bib" placeholder="หมายเลขผู้ออกกำลังกาน [BIB] ที่ได้จากการสมัคร" value="<?php echo $runner->bib ;?>">
   </div>
   <div class="form-group">
