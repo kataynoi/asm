@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     pageLength: 10,
     ajax: {
-      url: site_url + "/runner/fetch_runner",
+      url: site_url + "/home/fetch_home",
       data: {
         csrf_token: csrf_token,
       },
@@ -18,7 +18,7 @@ $(document).ready(function () {
     },
     columnDefs: [
       {
-        targets: [2, 3],
+        targets: [1, 2],
         orderable: true,
       },
     ],
@@ -61,7 +61,7 @@ crud.ajax = {
   set_vaccine_status: function (cid, cb) {
     var url = "/runner/set_vaccine_status",
       params = {
-        cid: cid,
+        cid: cid
       };
 
     app.ajax(url, params, function (err, data) {
@@ -71,13 +71,13 @@ crud.ajax = {
   set_status_cancle: function (cid, cb) {
     var url = "/runner/set_status_cancle",
       params = {
-        cid: cid,
+        cid: cid
       };
 
     app.ajax(url, params, function (err, data) {
       err ? cb(err) : cb(null, data);
     });
-  },
+  }
 };
 
 crud.del_data = function (id) {
@@ -97,8 +97,10 @@ crud.save = function (items) {
       //app.alert(err);
       swal(err);
     } else {
+     
       swal("บันทึกข้อมูลเรียบร้อยแล้ว ");
-      window.location.href = site_url + "/runner";
+      window.location.href = site_url+'/runner';
+
     }
   });
 };
@@ -110,11 +112,12 @@ crud.get_update = function (id, row_id) {
       swal(err);
     } else {
       //swal('แก้ไขข้อมูลเรียบร้อยแล้ว ');
-
+     
       crud.set_update(data, row_id);
     }
   });
 };
+
 
 $("#btn_save_runner").on("click", function (e) {
   e.preventDefault();
@@ -186,9 +189,6 @@ function validate(items) {
   } else if (!items.weight) {
     swal("กรุณาระบุน้ำหนัก");
     $("#weight").focus();
-  } else if (items.bib != 0 && items.bib <= 3000000) {
-    swal("หมายเลขไม่ถูกต้อง");
-    $("#bib").focus();
   } else if (!items.height) {
     swal("กรุณาระบุส่วนสูง");
     $("#height").focus();
@@ -241,8 +241,8 @@ $(document).on("change", "select[data-btn='sl_vaccine_status']", function (e) {
 $(document).on("click", "button[data-btn='btn_needle3']", function (e) {
   var cid = $(this).data("cid");
   var x = $(this);
-  var date_now = app.date_now_thai();
-
+  var date_now =app.date_now_thai();
+ 
   swal({
     title: "คำเตือน?",
     text: "คุณต้องการเพิ่ม การรับวัคซีนเข็ม 3 ",
@@ -261,8 +261,8 @@ $(document).on("click", "button[data-btn='btn_needle3']", function (e) {
 $(document).on("click", "button[data-btn='btn_needle3_cancle']", function (e) {
   var cid = $(this).data("cid");
   var x = $(this);
-  var date_now = app.date_now_thai();
-
+  var date_now =app.date_now_thai();
+ 
   swal({
     title: "คำเตือน?",
     text: "ต้องยกเลิกก้าวท้าใจ ",
