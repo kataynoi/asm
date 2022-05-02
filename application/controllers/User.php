@@ -39,7 +39,7 @@ class User extends CI_Controller
             redirect(site_url("runner"), 'refresh');
            console_log('login'.$this->session->userdata('asm_login'));
         } else {
-            $this->layout->view('user/login_asm');
+            $this->layout->view('user/login');
             console_log($this->session->userdata('fullname'));
         }
     }
@@ -97,23 +97,40 @@ class User extends CI_Controller
     }
 
     
-    public function do_auth_asm()
+    public function do_auth()
     {
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-        
-        $rs = $this->user->do_auth_asm($username, $password);
-  
-        if ($rs['cid']) {
-            $rs['id'] = $rs['cid'];
-            $rs['asm_login'] = true;
-            $rs['fullname'] = $rs['name']." ".$rs['lname'];
-            $rs['user_level'] = $rs['user_level'];
-            $this->session->set_userdata($rs);
-            $json = '{"success": true, "msg": "Login Success" }';
-        } else {
-            $json = '{"success": false, "msg": "Username หรือ Password ไม่ถูกต้อง"}';
+        $check_user = substr($username,0,7);
+        //echo $check_user;
+        if($check_user=='vaccine'){
+            $rs = $this->user->do_auth_hospital($username, $password);
+            if ($rs['id']) {
+                $rs['id'] = substr($username,8,5);
+                $rs['hospcode'] = substr($username,8,5);
+                $rs['asm_login'] = true;
+                $rs['fullname'] = $rs['name'];
+                $rs['user_level'] = 'hospital';
+                $this->session->set_userdata($rs);
+                $json = '{"success": true, "msg": "" }';
+            } else {
+                $json = '{"success": false, "msg": "Username หรือ Password ไม่ถูกต้อง"}';
+            }
+        }else{
+            $rs = $this->user->do_auth_asm($username, $password);
+            if ($rs['cid']) {
+                $rs['id'] = $rs['cid'];
+                $rs['hospcode'] = $rs['hospcode'];
+                $rs['asm_login'] = true;
+                $rs['fullname'] = $rs['name']." ".$rs['lname'];
+                $rs['user_level'] = 'asm';
+                $this->session->set_userdata($rs);
+                $json = '{"success": true, "msg": "Login Success" }';
+            } else {
+                $json = '{"success": false, "msg": "Username หรือ Password ไม่ถูกต้อง"}';
+            }
         }
+        
 
         render_json($json);
     }

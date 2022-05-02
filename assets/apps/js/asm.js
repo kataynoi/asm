@@ -10,7 +10,7 @@ $(document).ready(function () {
 
     pageLength: 10,
     ajax: {
-      url: site_url + "/runner/fetch_runner",
+      url: site_url + "/asm/fetch_asm",
       data: {
         csrf_token: csrf_token,
       },
@@ -29,7 +29,7 @@ var crud = {};
 
 crud.ajax = {
   del_data: function (id, cb) {
-    var url = "/runner/del_invite",
+    var url = "/asm/del_invite",
       params = {
         id: id,
       };
@@ -39,7 +39,7 @@ crud.ajax = {
     });
   },
   save: function (items, cb) {
-    var url = "/runner/save_runner",
+    var url = "/asm/save_asm",
       params = {
         items: items,
       };
@@ -49,7 +49,7 @@ crud.ajax = {
     });
   },
   get_update: function (id, cb) {
-    var url = "/runner/get_person_vaccine",
+    var url = "/asm/get_person_vaccine",
       params = {
         id: id,
       };
@@ -59,7 +59,7 @@ crud.ajax = {
     });
   },
   set_vaccine_status: function (cid, cb) {
-    var url = "/runner/set_vaccine_status",
+    var url = "/asm/set_vaccine_status",
       params = {
         cid: cid,
       };
@@ -68,8 +68,8 @@ crud.ajax = {
       err ? cb(err) : cb(null, data);
     });
   },
-  set_status_cancle: function (cid, cb) {
-    var url = "/runner/set_status_cancle",
+  set_asm_cancle: function (cid, cb) {
+    var url = "/asm/set_asm_cancle",
       params = {
         cid: cid,
       };
@@ -80,13 +80,12 @@ crud.ajax = {
   },
 };
 
-crud.del_data = function (id) {
-  crud.ajax.del_data(id, function (err, data) {
+crud.del_asm = function (cid) {
+  crud.ajax.set_asm_cancle(cid, function (err, data) {
     if (err) {
       swal(err);
     } else {
-      //swal('ลบข้อมูลเรียบร้อย')
-      app.alert("ลบข้อมูลเรียบร้อย");
+      swal('ลบข้อมูลเรียบร้อย')
     }
   });
 };
@@ -98,7 +97,7 @@ crud.save = function (items) {
       swal(err);
     } else {
       swal("บันทึกข้อมูลเรียบร้อยแล้ว ");
-      window.location.href = site_url + "/runner";
+      window.location.href = site_url + "/asm";
     }
   });
 };
@@ -116,7 +115,7 @@ crud.get_update = function (id, row_id) {
   });
 };
 
-$("#btn_save_runner").on("click", function (e) {
+$("#btn_save_asm").on("click", function (e) {
   e.preventDefault();
   var action;
   var items = {};
@@ -128,7 +127,7 @@ $("#btn_save_runner").on("click", function (e) {
   items.weight = $("#weight").val();
   items.height = $("#height").val();
   items.bib = $("#bib").val();
-  items.runner_type = $("#runner_type").val();
+  items.asm_type = $("#asm_type").val();
 
   if (validate(items)) {
     crud.save(items);
@@ -145,21 +144,22 @@ $("#add_data").on("click", function (e) {
   app.clear_form();
 });
 
-$(document).on("click", 'button[data-btn="btn_del"]', function (e) {
+$(document).on("click", 'button[data-btn="btn_del_asm"]', function (e) {
   e.preventDefault();
-  var id = $(this).data("id");
+  var id = $(this).data("cid");
+  var x = $(this);
   var td = $(this).parent().parent().parent();
 
   swal({
     title: "คำเตือน?",
-    text: "คุณต้องการลบข้อมูล ",
+    text: "คุณต้องการลบข้อมูล อสม.",
     icon: "warning",
     buttons: ["cancel !", "Yes !"],
     dangerMode: true,
   }).then(function (isConfirm) {
     if (isConfirm) {
-      crud.del_data(id);
-      $this.parent().parent().hide();
+      crud.del_asm(id);
+      x.parent().parent().parent().hide();
     }
   });
 });
@@ -189,9 +189,9 @@ function validate(items) {
   } else if (!items.height) {
     swal("กรุณาระบุส่วนสูง");
     $("#height").focus();
-  } else if (!items.runner_type) {
+  } else if (!items.asm_type) {
     swal("กรุณาระบุประเภท");
-    $("#runner_type").focus();
+    $("#asm_type").focus();
   } else {
     return true;
   }
@@ -208,8 +208,8 @@ crud.set_vaccine_needle3 = function (cid) {
   return true;
 };
 
-crud.set_status_cancle = function (cid) {
-  crud.ajax.set_status_cancle(cid, function (err, data) {
+crud.set_asm_cancle = function (cid) {
+  crud.ajax.set_asm_cancle(cid, function (err, data) {
     if (err) {
       $r = false;
     } else {
@@ -218,59 +218,8 @@ crud.set_status_cancle = function (cid) {
   });
   return true;
 };
-$(document).on("change", "select[data-btn='sl_vaccine_status']", function (e) {
-  var cid = $(this).data("cid");
-  var val = $(this).val();
-  swal({
-    title: "คำเตือน?",
-    text: "คุณต้องการแก้ไข สถานะการรับวัคซีน ",
-    icon: "warning",
-    buttons: ["cancel !", "Yes !"],
-    dangerMode: true,
-  }).then(function (isConfirm) {
-    if (isConfirm) {
-      if (crud.set_vaccine_status(cid, val)) {
-      }
-    }
-  });
-});
 
-$(document).on("click", "button[data-btn='btn_needle3']", function (e) {
-  var cid = $(this).data("cid");
-  var x = $(this);
-  var date_now = app.date_now_thai();
 
-  swal({
-    title: "คำเตือน?",
-    text: "คุณต้องการเพิ่ม การรับวัคซีนเข็ม 3 ",
-    icon: "warning",
-    buttons: ["cancel !", "Yes !"],
-    dangerMode: true,
-  }).then(function (isConfirm) {
-    if (isConfirm) {
-      if (crud.set_vaccine_needle3(cid)) {
-        x.parent().html(date_now);
-      }
-    }
-  });
-});
 
-$(document).on("click", "button[data-btn='btn_needle3_cancle']", function (e) {
-  var cid = $(this).data("cid");
-  var x = $(this);
-  var date_now = app.date_now_thai();
 
-  swal({
-    title: "คำเตือน?",
-    text: "ต้องยกเลิกก้าวท้าใจ ",
-    icon: "warning",
-    buttons: ["ไม่ใช่ !", "ใช่ !"],
-    dangerMode: true,
-  }).then(function (isConfirm) {
-    if (isConfirm) {
-      if (crud.set_status_cancle(cid)) {
-        x.parent().parent().parent().hide();
-      }
-    }
-  });
-});
+

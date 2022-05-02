@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="<?php echo base_url(); ?>">อสม.มหาสารคาม</a>
+        <a class="navbar-brand" href="<?php echo base_url(); ?>">อสม.มหาสารคาม </a>
         <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
@@ -8,16 +8,32 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
 
             <ul class="navbar-nav ms-auto">
-                <li class=" nav-item mx-0 mx-lg-1 dropdown">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        หลังคาเรือนรับผิดชอบ
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="<?php echo site_url('/home'); ?>">กำหนดหลังคาเรือนรับผิดชอบ </a></li>
-                        <li><a class="dropdown-item" href="<?php echo site_url('/person'); ?>"> ประชาชนที่อยู่ในบ้านรับผิดชอบ</a></li>
-                    </ul>
-                    </i>
-                </li>
+                <?php if ($this->session->userdata('user_level') == 'hospital') {
+
+                ?>
+                    <li class=" nav-item mx-0 mx-lg-1 dropdown">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            จัดการข้อมูล อสม.
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="<?php echo site_url('/asm'); ?>"> เพิ่ม ลบ แก้ไข อสม. </a></li>
+                        </ul>
+                        </i>
+                    </li>
+                <?php }
+                if ($this->session->userdata('user_level') == 'asm') {
+                ?>
+                    <li class=" nav-item mx-0 mx-lg-1 dropdown">
+                        <a disabled class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            หลังคาเรือนรับผิดชอบ
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a disabled class="dropdown-item" href="<?php echo site_url('/home'); ?>">กำหนดหลังคาเรือนรับผิดชอบ </a></li>
+                            <li><a disabled class="dropdown-item" href="<?php echo site_url('/person'); ?>"> ประชาชนที่อยู่ในบ้านรับผิดชอบ</a></li>
+                        </ul>
+                        </i>
+                    </li>
+                <?php } ?>
                 <li class=" nav-item mx-0 mx-lg-1 dropdown">
                     <a class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         ก้าวท้าใจ
