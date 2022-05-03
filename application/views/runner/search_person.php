@@ -33,9 +33,9 @@
                     if (!empty($person['CID'])) {
                         if (!empty($person['invite_runner'])) {
                             echo "<tr ><td class='text-center' colspan='5'>" . $person['NAME'] . " " . $person['LNAME'] . "  ลงทะเบียนแล้ว</td></tr>";
-                        } else {
+                        }else {
                             echo "<tr>";
-                            echo "<td><form method='post' action='" . site_url('runner/invite/') .$person['CID']. "'><button class='btn btn-info'>เพิ่มเป้าหมาย</button><input name='cid' type='hidden' value='" . $person['CID'] . "'><form></td>";
+                            echo "<td><form method='post' action='" . site_url('runner/invite/') . $person['CID'] . "'><button class='btn btn-info'>เพิ่มเป้าหมาย</button><input name='cid' type='hidden' value='" . $person['CID'] . "'><form></td>";
                             echo "<td>" . $person['NAME'] . "</td>";
                             echo "<td>" . $person['LNAME'] . "</td>";
                             echo "<td>" . $person['vhid'] . "</td>";
