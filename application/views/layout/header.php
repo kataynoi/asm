@@ -24,12 +24,12 @@
                 if ($this->session->userdata('user_level') == 'asm') {
                 ?>
                     <li class=" nav-item mx-0 mx-lg-1 dropdown">
-                        <a disabled class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             หลังคาเรือนรับผิดชอบ
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a disabled class="dropdown-item" href="<?php echo site_url('/home'); ?>">กำหนดหลังคาเรือนรับผิดชอบ </a></li>
-                            <li><a disabled class="dropdown-item" href="<?php echo site_url('/person'); ?>"> ประชาชนที่อยู่ในบ้านรับผิดชอบ</a></li>
+                            <li><a class="dropdown-item" href="<?php echo site_url('/home'); ?>">กำหนดหลังคาเรือนรับผิดชอบ </a></li>
+                            <li><a class="dropdown-item" href="<?php echo site_url('/person'); ?>"> ประชาชนที่อยู่ในบ้านรับผิดชอบ</a></li>
                         </ul>
                         </i>
                     </li>

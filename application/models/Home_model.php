@@ -11,10 +11,12 @@ class Home_model extends CI_Model
 {
     var $table = "home";
     var $order_column = array('TYPEAREA', 'vhid', 'age_y');
+    var $hospcode ;
 
     function __construct()
     {
         //$this->db2 = $this->load->database('vaccine', TRUE);
+        $this->hospcode = $this->session->userdata('hospcode');
     }
     function make_query()
     {
@@ -63,56 +65,7 @@ class Home_model extends CI_Model
 
 
     /* End Datatable*/
-    public function del_invite($id)
-    {
-        $rs = $this->db
-            ->where('id', $id)
-            ->delete('t_person_cid_hash');
-        return $rs;
-    }
-
-    public function get_cvaccine_status()
-    {
-        $rs = $this->db
-            ->get("cvaccine_status")
-            ->result_array();
-        return $rs;
-    }
-
-    public function get_vaccine_status_name($id)
-    {
-        $rs = $this->db
-            ->where("id", $id)
-            ->get("cstatus_vaccine")
-            ->row();
-        return $rs ? $rs->name : "";
-    }
-
-    public function save_runner($data)
-    {
-        if ($data["bib"] == "") {
-            $data["bib"] = "NULL";
-        }
-        $rs = $this->db
-            ->set("mobile", $data["mobile"])
-            ->set("weight", $data["weight"])
-            ->set("height", $data["height"])
-            ->set("runner_type", $data["runner_type"])
-            ->set("invite_runner", $data["invite"])
-            ->set("bib", $data["bib"])
-            ->where('CID', $data["cid"])
-            ->update('t_person_cid_hash');
-
-        return $rs;
-    }
-    public function update_person_vaccine($data)
-    {
-        $rs = $this->db
-            ->set("HOSPCODE", $data["HOSPCODE"])->set("CID", $data["CID"])->set("CID_HASH", $data["CID_HASH"])->set("PID", $data["PID"])->set("HID", $data["HID"])->set("PRENAME", $data["PRENAME"])->set("NAME", $data["NAME"])->set("LNAME", $data["LNAME"])->set("HN", $data["HN"])->set("SEX", $data["SEX"])->set("BIRTH", $data["BIRTH"])->set("MSTATUS", $data["MSTATUS"])->set("OCCUPATION_OLD", $data["OCCUPATION_OLD"])->set("OCCUPATION_NEW", $data["OCCUPATION_NEW"])->set("RACE", $data["RACE"])->set("NATION", $data["NATION"])->set("RELIGION", $data["RELIGION"])->set("EDUCATION", $data["EDUCATION"])->set("FSTATUS", $data["FSTATUS"])->set("FATHER", $data["FATHER"])->set("MOTHER", $data["MOTHER"])->set("COUPLE", $data["COUPLE"])->set("VSTATUS", $data["VSTATUS"])->set("MOVEIN", $data["MOVEIN"])->set("DISCHARGE", $data["DISCHARGE"])->set("DDISCHARGE", $data["DDISCHARGE"])->set("ABOGROUP", $data["ABOGROUP"])->set("RHGROUP", $data["RHGROUP"])->set("LABOR", $data["LABOR"])->set("PASSPORT", $data["PASSPORT"])->set("TYPEAREA", $data["TYPEAREA"])->set("D_UPDATE", $data["D_UPDATE"])->set("check_hosp", $data["check_hosp"])->set("check_typearea", $data["check_typearea"])->set("vhid", $data["vhid"])->set("check_vhid", $data["check_vhid"])->set("maininscl", $data["maininscl"])->set("inscl", $data["inscl"])->set("age_y", $data["age_y"])->set("addr", $data["addr"])->set("home", $data["home"])->set("TELEPHONE", $data["TELEPHONE"])->set("MOBILE", $data["MOBILE"])->set("HDC_DATE", $data["HDC_DATE"])->set("vaccine_plan1_date", $data["vaccine_plan1_date"])->set("vaccine_hosp1", $data["vaccine_hosp1"])->set("vaccine_name1", $data["vaccine_name1"])->set("vaccine_plan2_date", $data["vaccine_plan2_date"])->set("vaccine_hosp2", $data["vaccine_hosp2"])->set("vaccine_name2", $data["vaccine_name2"])->set("vaccine_plan3_date", $data["vaccine_plan3_date"])->set("vaccine_hosp3", $data["vaccine_hosp3"])->set("vaccine_name3", $data["vaccine_name3"])->set("vaccine_plan4_date", $data["vaccine_plan4_date"])->set("vaccine_hosp4", $data["vaccine_hosp4"])->set("vaccine_name4", $data["vaccine_name4"])->set("vaccine_provname", $data["vaccine_provname"])->set("vaccine_provcode", $data["vaccine_provcode"])->set("vaccine_status", $data["vaccine_status"])->where("id", $data["id"])
-            ->update('t_person_cid_hash');
-
-        return $rs;
-    }
+  
     public function get_person($cid)
     {
         $rs = $this->db
@@ -121,39 +74,25 @@ class Home_model extends CI_Model
             ->row();
         return $rs;
     }
-    public function set_vaccine_status($cid)
-    {
-        $rs = $this->db
-            ->set('needle_3', date('Y-m-d'))
-            ->where('CID', $cid)
-            ->update('t_person_cid_hash');
 
-        return $rs;
-    }
-    public function set_status_cancle($cid)
+    public function set_status_cancle($hid)
     {
         $rs = $this->db
-            ->set('invite_runner', 'NULL', FALSE)
-            ->where('CID', $cid)
-            ->update('t_person_cid_hash');
+            ->set('asm', 'NULL', FALSE)
+            ->where('HID', $hid)
+            ->where('HOSPCODE', $this->hospcode)
+            ->update('home');
 
         return $rs;
     }
 
-    public function set_need_vaccine3($cid)
-    {
-        $rs = $this->db
-            ->set('target_needle3_14', '1')
-            ->where('CID', $cid)
-            ->update('t_person_cid_hash');
 
-        return $rs;
-    }
-    public function search_person($cid)
+    public function search_home($house_id)
     {
         $rs = $this->db
-            ->where("cid", $cid)
-            ->get("t_person_cid_hash")
+            ->where("HOUSE", $house_id)
+            ->where("hospcode", $this->hospcode)
+            ->get("home")
             ->row_array();
         return $rs;
     }

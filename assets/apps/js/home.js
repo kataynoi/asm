@@ -68,10 +68,10 @@ crud.ajax = {
       err ? cb(err) : cb(null, data);
     });
   },
-  set_status_cancle: function (cid, cb) {
-    var url = "/runner/set_status_cancle",
+  set_status_cancle: function (hid, cb) {
+    var url = "/home/set_status_cancle",
       params = {
-        cid: cid
+        hid: hid
       };
 
     app.ajax(url, params, function (err, data) {
@@ -258,20 +258,20 @@ $(document).on("click", "button[data-btn='btn_needle3']", function (e) {
   });
 });
 
-$(document).on("click", "button[data-btn='btn_needle3_cancle']", function (e) {
-  var cid = $(this).data("cid");
+$(document).on("click", "button[data-btn='btn_del']", function (e) {
+  var hid = $(this).data("hid");
   var x = $(this);
   var date_now =app.date_now_thai();
  
   swal({
     title: "คำเตือน?",
-    text: "ต้องยกเลิกก้าวท้าใจ ",
+    text: "ต้องการลบบ้านรับผิดชอบ",
     icon: "warning",
     buttons: ["ไม่ใช่ !", "ใช่ !"],
     dangerMode: true,
   }).then(function (isConfirm) {
     if (isConfirm) {
-      if (crud.set_status_cancle(cid)) {
+      if (crud.set_status_cancle(hid)) {
         x.parent().parent().parent().hide();
       }
     }

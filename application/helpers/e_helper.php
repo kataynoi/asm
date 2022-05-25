@@ -605,16 +605,18 @@ if(!function_exists('getComebackName'))
         return $rs ? $rs->prename.$rs->name." ".$rs->lname : '-';
     }
 }
-if(!function_exists('get_group_name'))
+if(!function_exists('get_owner_home'))
 {
-    function get_group_name($code)
+    function get_owner_home($HID)
     {
         $ci =& get_instance();
         $rs = $ci->db
-            ->where(array('id' => $code))
-            ->get('co_workgroup')
+            ->where('HID' , $HID)
+            ->limit(1)
+            ->order_by('age_y','DESC')
+            ->get('t_person_cid_hash')
             ->row();
-        return $rs ? $rs->name : '-';
+        return $rs ? $rs->NAME." ".$rs->LNAME : '-';
     }
 }
 

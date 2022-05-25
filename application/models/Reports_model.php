@@ -212,7 +212,7 @@ class Reports_model extends CI_Model
 
 
         $sql = "SELECT a.`NAME`,a.LNAME,a.CID ,a.BIRTH,a.vhid ,count(b.cid) as target
-        ,SUM(IF(b.bib IS NOT NULL AND b.bib between 3500000 AND 4000000,1,0)) as result
+        ,SUM(IF(b.bib IS NOT NULL AND b.bib between 3500000 AND 5000000,1,0)) as result
         FROM t_person_cid_hash a 
         LEFT JOIN (SELECT * FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) b ON a.CID = b.invite_runner
         WHERE a.aorsormor=1 AND a.hospcode='".$hospcode."'  GROUP BY a.CID ORDER BY result DESC";
@@ -233,7 +233,7 @@ class Reports_model extends CI_Model
         FROM (SELECT * FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) a 
         LEFT JOIN t_person_cid_hash b ON a.invite_runner = b.CID
         WHERE a.invite_runner IS NOT NULL 
-        GROUP BY a.invite_runner ORDER BY result DESC";
+        GROUP BY a.invite_runner ORDER BY result DESC LIMIT 500";
         //echo $sql;
         $rs = $this->db->query($sql)->result();
         //echo $this->db->last_query();

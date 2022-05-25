@@ -20,7 +20,7 @@
     <div class="panel-body">
 
         <div class="navbar navbar-default">
-            <form action="<?php echo site_url('report/runner_ampur') ?>" class="navbar-form" method="post">
+            <form action="<?php echo site_url('report/runner_ampur') ?>" class="form-inline" method="post">
                 <label class="control-label"> อำเภอ </label>
                 <select id="sl_ampur" name="ampurcode" style="width: 200px;" class="form-control">
                     <option value=""> อำเภอทั้งหมด </option>
@@ -32,12 +32,8 @@
                     }
                     ?>
                 </select>
+                <button type="submit" class="btn btn-primary" id="btn_audit1" data-name='btn_show'> <i class="fa fa-search" aria-hidden="true"></i> แสดง</button>
 
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-primary" id="btn_audit1" data-name='btn_show'>
-                        <i class="glyphicon glyphicon-search"></i> แสดง
-                    </button>
-                </div>
             </form>
         </div>
         <table class="table table-striped">

@@ -10,9 +10,9 @@
     <div class="row">
         <div class="panel panel-info ">
             <div class="panel-heading w3-theme">
-                <form action="<?php echo site_url('runner/search_person') ?>" method="post">
+                <form action="<?php echo site_url('home/search_home') ?>" method="post">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="เลขบัตรประชาชน" name="cid" id="cid">
+                        <input type="text" class="form-control" placeholder="บ้านเลขที่" name="HOUSE" id="HOUSE">
                         <div class="input-group-append">
                             <button class="btn btn-info" type="submit">ค้นหา</button>
                         </div>
@@ -30,9 +30,9 @@
                         </tr>
                     </thead>
                     <?php
-                    if (!empty($person['CID'])) {
-                        if (!empty($person['invite_runner'])) {
-                            echo "<tr ><td class='text-center' colspan='5'>" . $person['NAME'] . " " . $person['LNAME'] . "  ลงทะเบียนแล้ว</td></tr>";
+                    if (!empty($house['HOUSE'])) {
+                        if (!empty($person['ASM'])) {
+                            echo "<tr ><td class='text-center' colspan='5'>" . $person['HOUSE'] . "  ลงทะเบียนแล้ว</td></tr>";
                         } else {
                             echo "<tr>";
                             echo "<td><form method='post' action='" . site_url('runner/invite/') .$person['CID']. "'><button class='btn btn-info'>เพิ่มเป้าหมาย</button><input name='cid' type='hidden' value='" . $person['CID'] . "'><form></td>";

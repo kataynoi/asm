@@ -22,10 +22,10 @@ class Home extends CI_Controller
     public function search_home()
     {
         $data[] = '';
-        $addr = $this->input->post('addr');
-        if (!empty($cid)) {
-            $data['person'] = $this->crud->search_person($addr);
-            $data['person']['vhid'] = $data['person']['addr'] . " " . get_short_address($data['person']['vhid']);
+        $HOUSE = $this->input->post('HOUSE');
+        if (!empty($HOUSE)) {
+            $data['house'] = $this->crud->search_home($HOUSE);
+            //$data['person']['vhid'] = $data['person']['addr'] . " " . get_short_address($data['person']['vhid']);
         }
         $this->layout->view('home/search_home', $data);
     }
@@ -54,14 +54,14 @@ class Home extends CI_Controller
 
 
             $HOUSE = "<div class='btn-group' role='group' >";
-            $HOUSE .= "<button class='btn btn-danger' data-btn='btn_needle3_cancle' data-cid='" . $row->HID . "'><i class='fa fa-trash'></i></button>";
+            $HOUSE .= "<button class='btn btn-danger' data-btn='btn_del' data-hid='" . $row->HID . "'><i class='fa fa-trash'></i></button>";
             $HOUSE .= "<a class='btn btn-warning' data-btn='btn_needle3_edit' href=" . site_url('home/invite/') . $row->HID . " ><i class='fa fa-edit' ></i></a>";
             
             $sub_array = array();
             $sub_array[] = $HOUSE;
-            $sub_array[] = $row->HOUSE;
             $sub_array[] = $row->HID;
-            $sub_array[] = "เจ้าของบ้าน";
+            $sub_array[] = $row->HOUSE;
+            $sub_array[] = get_owner_home($row->HID);
 
 
             $data[] = $sub_array;
@@ -150,9 +150,9 @@ class Home extends CI_Controller
 
     public function set_status_cancle()
     {
-        $cid = $this->input->post('cid');
+        $hid = $this->input->post('hid');
 
-        $rs = $this->crud->set_status_cancle($cid);
+        $rs = $this->crud->set_status_cancle($hid);
         if ($rs) {
             $json = '{"success": true}';
         } else {
