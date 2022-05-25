@@ -229,7 +229,7 @@ class Reports_model extends CI_Model
 
 
         $sql = "SELECT b.`NAME`,b.LNAME,b.CID,b.vhid,count(a.CID) as target
-        ,SUM(IF(a.bib <>0 AND a.bib between 3500000 AND 4000000,1,0)) as result
+        ,SUM(IF(a.bib <>0 AND a.bib between 3500000 AND 5000000,1,0)) as result
         FROM (SELECT * FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) a 
         LEFT JOIN t_person_cid_hash b ON a.invite_runner = b.CID
         WHERE a.invite_runner IS NOT NULL 
@@ -255,7 +255,7 @@ class Reports_model extends CI_Model
 
         $sql = "SELECT ".$select.",count(DISTINCT a.CID) asm 
         ,count( DISTINCT b.invite_runner) as asm_10,count(b.invite_runner) as target 
-        ,SUM(IF(b.bib <>0 AND b.bib between 3500000 AND 4000000 ,1,0)) as result  FROM t_person_cid_hash a 
+        ,SUM(IF(b.bib <>0 AND b.bib between 3500000 AND 5000000 ,1,0)) as result  FROM t_person_cid_hash a 
         LEFT JOIN (SELECT invite_runner,bib  FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) b ON a.CID = b.invite_runner
         LEFT JOIN chospital c ON a.HOSPCODE = c.hoscode
         LEFT JOIN (SELECT * FROM campur WHERE changwatcode=44) d ON c.distcode = d.ampurcode
