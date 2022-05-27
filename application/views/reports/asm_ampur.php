@@ -20,23 +20,19 @@ $('#btn-28').on('click', function() {
     <div class="panel-body">
 
         <div class="navbar navbar-default">
-            <form action="<?php echo site_url('report/asm_ampur')?>" class="navbar-form" method="post">
-                <label class="control-label"> อำเภอ </label>
-                <select id="sl_ampur" name="ampurcode" style="width: 200px;" class="form-control">
-                    <option value=""> อำเภอทั้งหมด </option>
-                    <?php
-                        $sl_amp=$this->session->userdata("sl_amp");
-                        foreach($amp as $v){
-                            $sl_amp == $v->ampurcodefull?$selected = 'selected ':$selected="";
-                            echo '<option value='.$v->ampurcodefull.' '.$selected.'>'.$v->ampurname.'</option>';
+                <form action="<?php echo site_url('report/runner_ampur') ?>" class="form-inline" method="post">
+                <div class="input-group mb-3">
+                    <select id="sl_ampurx" name="ampurcode" style="width: 200px;" class="form-control">
+                        <option value=""> อำเภอทั้งหมด </option>
+                        <?php
+                        $sl_amp = $this->session->userdata("sl_amp");
+                        foreach ($amp as $v) {
+                            $sl_amp == $v->ampurcodefull ? $selected = 'selected ' : $selected = "";
+                            echo '<option value=' . $v->ampurcodefull . ' ' . $selected . '>' . $v->ampurname . '</option>';
                         }
                         ?>
-                </select>
-                
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-primary" id="btn_audit1" data-name='btn_show'>
-                        <i class="glyphicon glyphicon-search"></i> แสดง
-                    </button>
+                    </select>
+                    <button type="submit" class="btn btn-primary" id="btn_audit1" data-name='btn_show'> <i class="fa fa-search" aria-hidden="true"></i> แสดง</button>
                 </div>
             </form>
         </div>
