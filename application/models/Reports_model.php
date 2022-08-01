@@ -169,7 +169,7 @@ class Reports_model extends CI_Model
         FROM (SELECT * FROM t_person_cid_hash WHERE invite IS NOT NULL) a 
         LEFT JOIN t_person_cid_hash b ON a.invite = b.CID
         WHERE a.invite IS NOT NULL 
-        GROUP BY a.invite ORDER BY result DESC LIMIT 100";
+        GROUP BY a.invite ORDER BY result DESC";
         //echo $sql;
         $rs = $this->db->query($sql)->result();
         //echo $this->db->last_query();
@@ -233,7 +233,7 @@ class Reports_model extends CI_Model
         FROM (SELECT * FROM t_person_cid_hash WHERE invite_runner IS NOT NULL) a 
         LEFT JOIN t_person_cid_hash b ON a.invite_runner = b.CID
         WHERE a.invite_runner IS NOT NULL 
-        GROUP BY a.invite_runner ORDER BY result DESC LIMIT 500";
+        GROUP BY a.invite_runner ORDER BY result DESC";
         //echo $sql;
         $rs = $this->db->query($sql)->result();
         //echo $this->db->last_query();
